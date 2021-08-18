@@ -17,15 +17,15 @@ const ToDo = () => {
   }
 
   function deleteItem(id) {
-    const items = list.filter( item => item.id !== id );
+    const items = list.filter(item => item.id !== id);
     setList(items);
   }
 
   function toggleComplete(id) {
 
-    const items = list.map( item => {
-      if ( item.id == id ) {
-        item.complete = ! item.complete;
+    const items = list.map(item => {
+      if (item.id == id) {
+        item.complete = !item.complete;
       }
       return item;
     });
