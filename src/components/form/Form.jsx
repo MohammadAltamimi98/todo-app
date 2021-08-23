@@ -1,14 +1,15 @@
 import React, { useContext } from 'react';
-import ToDoListContext from '../context/ToDoListContext'
+import useForm from '../../hooks/form';
 
-function Form() {
-  const { handleSubmit, handleChange } = useContext(ToDoListContext);
+function Form(props) {
+  const { handleSubmit, handleChange } = useForm(props.addItem);
+  import { Button } from "@blueprintjs/core";
 
   return (
     <div>
       <form onSubmit={handleSubmit}>
 
-        <h2>Add To Do Item</h2>
+        <h1>Add To Do Item</h1>
 
         <label>
           <span>To Do Item</span>
@@ -26,7 +27,7 @@ function Form() {
         </label>
 
         <label>
-          <button type="submit">Add Item</button>
+          <Button type="submit">Add Item</Button>
         </label>
       </form>
     </div>

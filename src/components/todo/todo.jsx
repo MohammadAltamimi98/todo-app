@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 // import useForm from '../../hooks/form.js';
 
 import { v4 as uuid } from 'uuid';
+import Header from '../header/Header';
+import Form from '../form/Form';
+import List from '../list/List'
 
 const ToDo = () => {
 
