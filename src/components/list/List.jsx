@@ -1,5 +1,5 @@
 // import React, { useContext, useState, useEffect } from 'react';
-
+import './list.scss';
 
 
 function List(props) {
@@ -12,7 +12,7 @@ function List(props) {
           <p>Todo Item: {item.text}</p>
           <p><small>Assigned to: {item.assignee}</small></p>
           <p><small>Difficulty: {item.difficulty ? item.difficulty : 3}</small></p>
-          <div onClick={() => props.toggleComplete(item.id)}>Complete: {item.complete.toString()}</div>
+          <div className="divdiv" onClick={() => props.toggleComplete(item.id)}>Complete: {item.complete.toString()}</div>
           <hr />
         </div>
       ))}
