@@ -3,20 +3,17 @@ import './list.scss';
 
 
 function List(props) {
-  console.log(props.toggleComplete);
   return (
     <div>
       {props.list.map(item => (
         <div key={item.id}>
           {console.log(item.id)}
-          <p>Todo Item: {item.text}</p>
-          <p>Assigned to: {item.assignee}</p>
-          <p>Difficulty: {item.difficulty ? item.difficulty : 3}</p>
-          <div className="divdiv" onClick={() => props.toggleComplete(item.id)}>Complete: {item.complete.toString()
-          }</div>
+          <h6>Todo Item: {item.text}</h6>
+          <p><small>Assigned to: {item.assignee}</small></p>
+          <p><small>Difficulty: {item.difficulty ? item.difficulty : 3}</small></p>
+          <div className="divdiv" onClick={() => props.toggleComplete(item.id)}><small>Complete: {item.complete ? "done" : "pending"}</small></div>
           <br />
-
-          <Button bg='danger' onClick={() => props.deleteItem(item.id)}>Delete</Button>
+          <Button variant='danger' onClick={() => props.deleteItem(item.id)}>Delete</Button>
           <hr />
         </div>
       ))
@@ -25,4 +22,4 @@ function List(props) {
   )
 }
 
-export default List
+export default List;
