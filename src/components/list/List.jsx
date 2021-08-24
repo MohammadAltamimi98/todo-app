@@ -16,7 +16,7 @@ function List(props) {
           }</div>
           <br />
 
-          <Button variant='danger' onClick={() => props.deleteItem(item.id)}>Delete</Button>
+          <Button bg='danger' onClick={() => props.deleteItem(item.id)}>Delete</Button>
           <hr />
         </div>
       ))

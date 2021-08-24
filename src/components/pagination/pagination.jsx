@@ -1,5 +1,4 @@
 import React from 'react';
-
 const Pagination = ({ todosPerPage, totalTodos, paginate }) => {
   const pageNum = [];
   for (let i = 1; i <= Math.ceil(totalTodos / todosPerPage); i++) {
@@ -10,7 +9,7 @@ const Pagination = ({ todosPerPage, totalTodos, paginate }) => {
       <ul className='pagination'>
         {pageNum.map(number => (
           <li key={number} className='item'>
-            <button onClick={() => paginate(number)} className='page-link'>
+            <button onClick={() => paginate(number)} >
               {number}
             </button>
           </li>

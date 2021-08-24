@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import './ToDo.scss';
 
 import { v4 as uuid } from 'uuid';
