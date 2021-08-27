@@ -8,7 +8,7 @@ function Settings(props) {
     <div>
       <form className="setting" onSubmit={holdValues}>
         <h2>Settings</h2>
-        <label>Show only completed todos </label> <br />
+        <label>Show only Incompleted todos </label> <br />
         <div className="boolean">
           <input type="radio" name="incomplete" value={false} /> No
           <input type="radio" name="incomplete" value={true} /> Yes
