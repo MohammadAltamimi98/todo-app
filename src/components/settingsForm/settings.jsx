@@ -18,8 +18,10 @@ function Settings(props) {
         <label>Select number of todo's to for display</label> <br />
         <select name="pageNumber" id="">
           <option disabled>Select One</option>
+          <option value="2">2</option>
           <option value="4">4</option>
           <option value="8">8</option>
+          <option value="10">10</option>
           <option value="12">12</option>
         </select>
         <br />

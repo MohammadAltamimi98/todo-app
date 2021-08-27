@@ -6,7 +6,7 @@ function SettingsContext(props) {
   // num of items that will be shown per page 
   // whetehr items in list are done or not
   // return these states as one onject sent throw value in provider.
-  const [elementsPerPage, setElementsPerPage] = useState(4);
+  const [elementsPerPage, setElementsPerPage] = useState(2);
   const [showCompleted, setShowCompleted] = useState(false);
   const [detectStorage, setDetectStorage] = useState(0)
 
