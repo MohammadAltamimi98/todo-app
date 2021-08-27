@@ -56,8 +56,8 @@ const ToDo = () => {
   })
 
   useEffect(() => {
-    if (context.showCompleted) {
-      let InCompletedTasks = list.filter(item => !item.complete);
+    if (context.showCompleted === true) {
+      let InCompletedTasks = list.filter(item => item.complete === false ? item : null);
       console.log(InCompletedTasks);
       setFilteredList(InCompletedTasks);
     }
@@ -86,12 +86,9 @@ const ToDo = () => {
 
         <Form addItem={addItem} />
         <Settings />
-        {!context.showCompleted &&
-          <List list={filteredList} toggleComplete={toggleComplete} deleteItem={deleteItem} />
-        }
 
-        {context.showCompleted &&
-          <List list={currentTodos ? currentTodos : list} toggleComplete={toggleComplete} deleteItem={deleteItem} />}
+        {context.showCompleted === false ?
+          <List list={currentTodos ? currentTodos : list} toggleComplete={toggleComplete} deleteItem={deleteItem} /> : <List list={filteredList} toggleComplete={toggleComplete} deleteItem={deleteItem} />}
         <Pagination todosPerPage={todosPerPage} totalTodos={list.length} paginate={paginate} />
       </div>
     </>
