@@ -1,28 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import cookie from 'react-cookies';
-import jwt from 'jsonwebtoken';
-import superagent from 'superagent';
-import base64 from 'base-64';
-import axios from 'axios';
-const API = 'https://auth-server-401.herokuapp.com';
+import React, { useState, useEffect } from "react";
+import cookie from "react-cookies";
+import jwt from "jsonwebtoken";
+import superagent from "superagent";
+import base64 from "base-64";
+import axios from "axios";
+const API = "https://auth-server-401.herokuapp.com";
 export const AuthContext = React.createContext();
-
 
 export default function Auth(props) {
   const [loggedIn, setLoggedIn] = useState(false);
-  const [username, setUsername] = useState({});
-  const [token, setToken] = useState(null);
-  const [capabilities, setCapabilities] = useState(null);
+  const [user, setUser] = useState({});
 
   useEffect(() => {
-    const token = cookie.load('auth');
-    // const acl = cookie.load('acl');
-    // setCapabilities(acl);
-    validateToken(token);
+    cookie.save("auth", token);
+    setUser(user);
+    setLoggedIn(loggedIn);
   }, []);
 
   const validateToken = (token) => {
-    if (token !== 'undefined' && token !== 'null') {
+    if (token !== "undefined" && token !== "null") {
       const user = jwt.decode(token);
       setLoginState(true, token, user);
     } else {
@@ -31,56 +27,59 @@ export default function Auth(props) {
   };
 
   const setLoginState = async (loggedIn, token, user) => {
-    cookie.save('auth', token);
-    await setToken(token);
-    await setLoggedIn(loggedIn);
-    await setUsername(user);
+    try {
+      cookie.save("auth", token);
+      setUser(user);
+      setLoggedIn(loggedIn);
+    } catch (error) {
+      console.log(`error in setLoginState ====> ${error.message}`);
+    }
   };
 
   const login = async (username, password) => {
     try {
       const response = await superagent
         .post(`${API}/signin`)
-        .set('authorization', `Basic ${base64.encode(`${username}:${password}`)}`);
-
-      const acl = response.body.capabilities;
-      setCapabilities(acl);
-      cookie.save('acl', acl);
+        .set(
+          "authorization",
+          `Basic ${base64.encode(`${username}:${password}`)}`
+        );
       validateToken(response.body.token);
     } catch (error) {
-      console.error('LOGIN ERROR', error.message);
+      console.error(`error in login function ====> ${error.message}`);
     }
   };
 
   const logout = () => {
-    cookie.remove('auth');
-    cookie.remove('acl');
-    setCapabilities(null);
     setLoginState(false, null, {});
   };
 
   const signUp = async (username, password, role) => {
-    const response = await axios.post(`${API}/signup`, { username: username, password: password, role: role });
-    validateToken(response.data.token);
+    try {
+      const response = await axios.post(`${API}/signup`, {
+        username: username,
+        password: password,
+        role: role,
+      });
+
+      validateToken(response.data.token);
+    } catch (error) {
+      console.log(`error in sign up function ====> ${error.message}`);
+    }
   };
 
   const state = {
-    loggedIn,
-    username,
-    token,
-    capabilities,
-    login,
+    validateToken,
+    setLoginState,
     logout,
     signUp,
+    loggedIn,
     setLoggedIn,
-    setUsername,
-    setToken,
-    setCapabilities
-  }
+    user,
+    setUser,
+  };
 
   return (
-    <AuthContext.Provider value={state}>
-      {props.children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={state}>{props.children}</AuthContext.Provider>
   );
 }

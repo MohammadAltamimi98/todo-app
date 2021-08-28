@@ -18,8 +18,10 @@ function Sign() {
   function handleSubmit(e) {
     e.preventDefault();
     if (!values.role) {
+      console.log('no role assign');
       const response = login(values.username, values.password);
     } else {
+      console.log(values.role);
       const response = signUp(values.username, values.password, values.role);
       console.log(response);
     }
