@@ -1,8 +1,15 @@
 import React from "react";
 import { useState, useContext } from "react";
 import { AuthContext } from "../../context/auth";
+import "./sign.scss";
+import { useHistory } from "react-router-dom";
 
 function Sign() {
+  const history = useHistory();
+
+  // const handleRoute = () =>{
+  //   history.push("/about");
+  // }
   const [values, setValues] = useState({});
   const [flip, setFlip] = useState(false);
   const { login, signUp, loggedIn } = useContext(AuthContext);
@@ -41,22 +48,28 @@ function Sign() {
   return (
     <div>
       {flip === false ? (
-        <>
+        <div className="loginForm">
           <h1>Sign Up Form </h1>
           <form className="login-form" onSubmit={handleSubmit}>
+            <label>Username :</label>
             <input
               type="text"
               onChange={handleChange}
               name="username"
               placeholder="username"
             />
+            <br />
+
+            <label>Password :</label>
             <input
               type="password"
               onChange={handleChange}
               name="password"
               placeholder="password"
             />
-            <label for="role">Choose a role:</label>
+            <br />
+
+            <label for="role">Choose a role : </label>
             <select
               onClick={handleChange}
               style={{ width: "10rem", marginBottom: "14px" }}
@@ -66,17 +79,20 @@ function Sign() {
               <option value="admin">Admin</option>
               <option value="user">User</option>
             </select>
+            <br />
+            <br />
+
             <button> Create user</button>
             <p className="message">
               Already registered?{" "}
-              <a onClick={() => flipFun(false)} href="#">
+              <a onClick={() => flipFun(false)} href="/#">
                 Sign In
               </a>
             </p>
           </form>
-        </>
+        </div>
       ) : (
-        <>
+        <div className="signupForm">
           <h1>Sign In Form </h1>
 
           <form className="login-form" onSubmit={handleSubmit}>
@@ -86,13 +102,18 @@ function Sign() {
               name="username"
               placeholder="username"
             />
+            <br />
+
             <input
               type="password"
               onChange={handleChange}
               name="password"
               placeholder="password"
             />
+            <br />
+            <br />
             <button> Sign In</button>
+            {loggedIn && <a href="/"> Home </a>}
 
             <p className="message">
               Don't have an account ?{" "}
@@ -101,7 +122,7 @@ function Sign() {
               </a>
             </p>
           </form>
-        </>
+        </div>
       )}
     </div>
   );

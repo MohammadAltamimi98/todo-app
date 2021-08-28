@@ -1,14 +1,19 @@
-@import '~normalize.css';
-@import '~@blueprintjs/core/lib/css/blueprint.css';
-@import '~@blueprintjs/icons/lib/css/blueprint-icons.css';
+@import "~normalize.css";
+@import "~@blueprintjs/core/lib/css/blueprint.css";
+@import "~@blueprintjs/icons/lib/css/blueprint-icons.css";
 @import "~@blueprintjs/core/lib/scss/variables";
- 
+
 .rule {
-    color:$white;
-    background: $cobalt2;
+  color: $white;
+  background: $cobalt2;
+  font-weight: bold;
+  a {
     font-weight: bold;
-    a{
-      font-weight: bold;
-      color:$white;
-    }
+    color: $white;
+  }
+}
+
+.btn1 {
+  position: relative;
+  left: 60rem;
 }
