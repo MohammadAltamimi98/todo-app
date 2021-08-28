@@ -12,9 +12,8 @@ export default function Auth(props) {
   const [user, setUser] = useState({});
 
   useEffect(() => {
-    cookie.save("auth", token);
-    setUser(user);
-    setLoggedIn(loggedIn);
+    const token = cookie.load("auth");
+    validateToken(token);
   }, []);
 
   const validateToken = (token) => {
@@ -38,12 +37,15 @@ export default function Auth(props) {
 
   const login = async (username, password) => {
     try {
+      console.log((username, password));
       const response = await superagent
         .post(`${API}/signin`)
         .set(
           "authorization",
           `Basic ${base64.encode(`${username}:${password}`)}`
         );
+      console.log(response);
+
       validateToken(response.body.token);
     } catch (error) {
       console.error(`error in login function ====> ${error.message}`);
@@ -61,7 +63,7 @@ export default function Auth(props) {
         password: password,
         role: role,
       });
-
+      console.log(response);
       validateToken(response.data.token);
     } catch (error) {
       console.log(`error in sign up function ====> ${error.message}`);
@@ -76,6 +78,7 @@ export default function Auth(props) {
     loggedIn,
     setLoggedIn,
     user,
+    login,
     setUser,
   };
 
