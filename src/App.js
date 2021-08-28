@@ -2,15 +2,18 @@ import React from 'react';
 import Sign from './components/sign/Sign';
 import ToDo from './components/todo/ToDo.jsx';
 import SettingsContext from './context/settings';
+import Auth from './context/auth'
 
 
 function App() {
   return (
     <>
-      <Sign />
-      <SettingsContext>
-        <ToDo />
-      </SettingsContext>
+      <Auth>
+        <Sign />
+        <SettingsContext>
+          <ToDo />
+        </SettingsContext>
+      </Auth>
     </>
   )
 }

@@ -45,8 +45,7 @@ export default function Auth(props) {
 
       const acl = response.body.capabilities;
       setCapabilities(acl);
-      // cookie.save('acl', acl);
-
+      cookie.save('acl', acl);
       validateToken(response.body.token);
     } catch (error) {
       console.error('LOGIN ERROR', error.message);
@@ -80,7 +79,7 @@ export default function Auth(props) {
   }
 
   return (
-    <AuthContext.Provider value={ }>
+    <AuthContext.Provider value={state}>
       {props.children}
     </AuthContext.Provider>
   );

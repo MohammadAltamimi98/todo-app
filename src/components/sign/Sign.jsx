@@ -1,14 +1,28 @@
 import React from 'react'
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { AuthContext } from '../../context/auth';
 
 
 function Sign() {
   const [values, setValues] = useState({});
   const [flip, setFlip] = useState(false)
+  const { login, signUp, loggedIn } = useContext(AuthContext);
 
   function handleChange(e) {
     setValues((values) => ({ ...values, [e.target.name]: e.target.value }));
     console.log(values);
+  }
+
+
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (!values.role) {
+      const response = login(values.username, values.password);
+    } else {
+      const response = signUp(values.username, values.password, values.role);
+      console.log(response);
+    }
   }
 
   function flipFun(e) {
@@ -29,7 +43,7 @@ function Sign() {
 
         <>
           <h1>Sign Up Form </h1>
-          <form className="login-form">
+          <form className="login-form" onSubmit={handleSubmit}>
             <input type="text" onChange={handleChange} name="username" placeholder="username" />
             <input type="password" onChange={handleChange} name="password" placeholder="password" />
             <label for="role">Choose a role:</label>
@@ -50,7 +64,7 @@ function Sign() {
         <>
           <h1>Sign In Form </h1>
 
-          <form className="login-form">
+          <form className="login-form" onSubmit={handleSubmit}>
             <input type="text" onChange={handleChange} name="username" placeholder="username" />
             <input type="password" onChange={handleChange} name="password" placeholder="password" />
             <button> Sign In</button>
